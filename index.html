@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./script.js"></script>
+</head>
+
+<body class="wraper">
+
+    <table border="2" class="table">
+        <caption> Таблица различных типов данных</caption>
+        <tr class="table_title">
+            <th>Число</th>
+            <th>Строка</th>
+            <th>Логический тип</th>
+            <th>Масив</th>
+        </tr>
+        <!-- <tr>
+            <td>foot</td>
+            <td>foot</td>
+            <td>foot</td>
+            <td>foot</td>
+        </tr> -->
+    </table>
+    <fieldset>
+        <legend>Добавить запись в таблицу</legend>
+        <form name="addForm" class="addForm ">
+            <label> ID </label> <input value="100" type="text">
+            <label> Строка </label> <input value="str100" type="text">
+            <label> Логический тип</label> <input value=true type="text">
+            <label> Массив </label> <input value=[0,1,2] type="text">
+            <input value="Добавить " onclick="add()" type="button">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Поиск по таблице</legend>
+        <form name="searchForm" class="searchForm ">
+            <label> Поиск по всем полям с учетом регистра. При пустом поиске возвращает все значения.
+            </label>
+            <input value="яблоки" type="text">
+            <input value="Поиск" onclick="search()" type="button">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend class="sort">Сортировка таблицы</legend>
+        <label> <input type="radio" name="sort" value="asc" checked> По возрастанию</label>
+        <label> <input type="radio" name="sort" value="desc"> По убыванию</label>
+        <p>Поле для сортировки</p>
+        <label> <input type="radio" name="sortName" value="id" checked>число</label>
+        <label> <input type="radio" name="sortName" value="boolean">логический
+            тип</label>
+        <p></p>
+        <input value="Отсортировать" onclick="sort()" type="button">
+    </fieldset>
+
+    <div id="popap" class="popap">
+        <div class="popap__body">
+            <h3>Редактирование</h3>
+            <a href="#" class="popap__close">X</a>
+            <form name="popapForm" class="popapForm ">
+                <label> ID </label> <input value="" type="text">
+                <label> Строка </label> <input value="" type="text">
+                <label> Логический тип</label> <input value="" type="text">
+                <label> Массив </label> <input value=[] type="text">
+                <input value="Изменить" onclick="change()" type="button">
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<style>
+    .wraper {
+        display: grid;
+        grid-template-columns: 350px 1fr;
+        grid-template-rows: auto auto auto 1fr;
+        grid-gap: 10px;
+        align-items: flex-start;
+    }
+
+    .table {
+        grid-area: 1/2/-1/-1;
+        margin-top: 7px;
+        backdrop-filter: blur(50px);
+    }
+
+    .addForm {
+        display: grid;
+        grid-gap: 5px 0px;
+        grid-template-columns: 120px 1fr;
+    }
+
+    .searchForm {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 5px 0px;
+    }
+
+    .sort {
+        display: grid;
+        grid-auto-columns: repeat(3, auto);
+    }
+
+    .popap {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.75);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease 0s;
+    }
+
+    .popap__body {
+        width: 520px;
+        height: 220px;
+        background-color: rgb(211 207 207 / 94%);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        opacity: 0;
+        transition: all 0.3s ease 0s;
+        transform: perspective(500px) translate(0, -170%) rotateX(60deg);
+
+        padding: 20px 18px 5px 18px;
+    }
+
+    .popap__close {
+        position: absolute;
+        top: 21px;
+        right: 25px;
+        font-size: 19px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .popap:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .popap:target .popap__body {
+        opacity: 1;
+        transform: perspective(500px) translate(0, 0%) rotateX(0deg);
+    }
+
+    .popapForm {
+        display: grid;
+        grid-gap: 7px 0px;
+        grid-template-columns: 120px 1fr;
+
+        margin-top: 20px;
+    }
+
+    h3 {
+        margin: auto;
+    }
+
+    input[type='button'] {
+        grid-column: 1/-1;
+        width: 100%;
+    }
+
+    tr:nth-of-type(even) {
+        background-color: rgba(189, 183, 183, 0.246);
+    }
+</style>
